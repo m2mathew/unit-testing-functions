@@ -13,6 +13,6 @@ describe("checkData", function() {
         expect(checkData("abcd")).to.be.false;
     });
     it("should throw an exception if the input is an array", function() {
-        expect(function() {checkData(["a"]) }).to.throw("Invalid input");
+        expect(function() {checkData(["a"]); }).to.throw("Invalid input");
     });
 });

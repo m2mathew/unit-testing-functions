@@ -8,6 +8,7 @@
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
 function checkData(inputString) {
 	if (typeof inputString !== "string") {
 		return inputString;
@@ -21,6 +22,8 @@ function checkData(inputString) {
 	}
 }
 
+
+
 /*
  * PROBLEM `concatenateArrays`: (normal)
  * Write a function that, given two arrays of integers a and b, returns an array
@@ -28,6 +31,7 @@ function checkData(inputString) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
 function concatenateArrays(a, b) {
 	if (typeof a !== "object" || typeof b !== "object") {
 		throw "Invalid input";
@@ -35,6 +39,8 @@ function concatenateArrays(a, b) {
 	var x = a.concat(b);
 	return x;
 }
+
+
 
 /*
  * PROBLEM `fixProperNoun`: (normal)
@@ -45,9 +51,19 @@ function concatenateArrays(a, b) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
 function fixProperNoun(noun) {
-	// your code goes here
+	if (typeof noun !== "string") {
+		throw "Invalid input";
+	}
+	var newNoun = noun.toLowerCase();
+	var code = newNoun.charCodeAt(0)-32;
+	newNoun.charAt(0) = newNoun.charAt(0)-32;
+
+	return newNoun;
 }
+
+
 
 /*
  * PROBLEM `sortLetters`: (normal)
@@ -56,9 +72,20 @@ function fixProperNoun(noun) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
 function sortLetters(inputString) {
-	// your code goes here
+	if (typeof inputString !== "string") {
+		throw "Invalid input";
+	}
+	var newString = inputString;
+	var alphaArray = [];
+	for (var i=0; i<inputString.length; i++) {
+		alphaArray[i] = newString.charAt(i);
+	}
+	return newString;
 }
+
+
 
 /*
  * PROBLEM `absVal`: (normal)
@@ -67,9 +94,22 @@ function sortLetters(inputString) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
-function absVal(integer) {
-	// your code goes here
+
+function absVal(x) {
+	if (typeof x !== "number") {
+		throw "Invalid input";
+	}
+	var y = x;
+	if (y<0) {
+		y *= -1;
+	}
+	if (y === -0){
+		y = 0;
+	}
+	return y;
 }
+
+
 
 /*
  * PROBLEM `myMin`: (normal)
@@ -78,8 +118,19 @@ function absVal(integer) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+
 function myMin(x,y) {
-	// your code goes here
+	if (typeof x !== "number" || typeof y !== "number") {
+		throw "Invalid input";
+	}
+	var intX = x;
+	var intY = y;
+	var intArray = [];
+	intArray[0] = intX;
+	intArray[1] = intY;
+	intArray.sort();
+	var smallerNumber = intArray[0];
+	return smallerNumber;
 }
 
 
@@ -94,8 +145,20 @@ function myMin(x,y) {
  */
 
 function myMax(array1) {
-	// your code goes here
+	if (typeof array1 !== "object") {
+		throw "Invalid input";
+	}
+	var large = 0;
+
+	for (var i=0;i<array1.length; i++) {
+		if (array1[i]>large) {
+			large = array1[i];
+		}
+	}
+	return large;
 }
+
+
 
 /*
  * PROBLEM `getMonth`: (normal)
@@ -110,7 +173,15 @@ function myMax(array1) {
  */
 
 function getMonth(n) {
-	// your code goes here
+	if (typeof n !== "number") {
+		throw "Invalid input";
+	}
+	if (n < 1 || n > 12) {
+		throw "Invalid input";
+	}
+	var months = ["January","February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	var givenMonth = months[n-1];
+	return givenMonth;
 }
 
 /*
@@ -120,7 +191,14 @@ function getMonth(n) {
  */
 
 function randomElement(arrayOfValues) {
-	// your code goes here
+	if (typeof arrayOfValues !== "object") {
+		throw "Invalid input";
+	}
+	var newArray = arrayOfValues;
+	var arrayLength = newArray.length;
+	var randomInt = Math.floor(Math.random() * (arrayLength));
+	var randomValue = newArray.slice(randomInt,randomInt+1);
+	return randomValue;
 }
 
 /*
@@ -131,7 +209,19 @@ function randomElement(arrayOfValues) {
  */
 
 function studentPairs(arrayOfStudents) {
-	// your code goes here
+	if (typeof arrayOfStudents !== "object") {
+		throw "Invalid input";
+	}
+	var newArray = arrayOfStudents;
+	var pairs = [];
+	var randomInt = Math.floor(Math.random() * (newArray.length)); //number between 1 and length of array
+
+	// need to push pairs of students to pairs array
+
+
+	for (var i=0; i<newArray.length; i++) {
+
+	}
 }
 
 /*
@@ -143,7 +233,9 @@ function studentPairs(arrayOfStudents) {
  */
 
 function sumSquares(N) {
-	// your code goes here
+	if (typeof N !== "number") {
+		throw "Invalid input";
+	}
 }
 
 /*
@@ -155,7 +247,9 @@ function sumSquares(N) {
  */
 
 function findMaxDiff(arrayOfIntegers) {
-	// your code goes here
+	if (typeof arrayOfIntegers !== "object") {
+		throw "Invalid input";
+	}
 }
 
 /*
@@ -168,7 +262,9 @@ function findMaxDiff(arrayOfIntegers) {
  */
 
 function insertDashes(sentence) {
-	// your code goes here
+	if (typeof sentence !== "string") {
+		throw "Invalid input";
+	}
 }
 
 /*
