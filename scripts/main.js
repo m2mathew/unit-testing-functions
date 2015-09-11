@@ -1,4 +1,5 @@
-'use strict';
+"use strict";
+var _ = require("lodash");
 
 /*
  * PROBLEM `checkData`: (normal)
@@ -6,12 +7,12 @@
  * has a length of exactly three. Return true if the string length is three or
  * false if it is not three.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function checkData(inputString) {
-	if (typeof inputString !== "string") {
-		return inputString;
+	if(!_.isString(inputString)) {
+		throw "Invalid input";
 	}
 
 	if (inputString.length === 3) {
@@ -29,17 +30,16 @@ function checkData(inputString) {
  * Write a function that, given two arrays of integers a and b, returns an array
  * that is formed by the elements of a followed by the elements of b.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function concatenateArrays(a, b) {
-	if (typeof a !== "object" || typeof b !== "object") {
+	if(!_.isArray(a) || !_.isArray(b)) {
 		throw "Invalid input";
 	}
 	var x = a.concat(b);
 	return x;
 }
-
 
 
 /*
@@ -49,18 +49,17 @@ function concatenateArrays(a, b) {
  * capitalized proper noun and returns the same noun with the proper
  * capitalization.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function fixProperNoun(noun) {
-	if (typeof noun !== "string") {
+	if(!_.isString(noun)) {
 		throw "Invalid input";
 	}
 	var newNoun = noun.toLowerCase();
-	var code = newNoun.charCodeAt(0)-32;
-	newNoun.charAt(0) = newNoun.charAt(0)-32;
+	var propLetter = newNoun.substring(0,1).toUpperCase() + newNoun.substring(1);
 
-	return newNoun;
+	return propLetter;
 }
 
 
@@ -70,19 +69,26 @@ function fixProperNoun(noun) {
  * Write a function called `sortLetters` that returns a string that sorts all
  * the letters from a given string in the alphabetical order.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function sortLetters(inputString) {
-	if (typeof inputString !== "string") {
+	if(!_.isString(inputString)) {
 		throw "Invalid input";
 	}
 	var newString = inputString;
 	var alphaArray = [];
-	for (var i=0; i<inputString.length; i++) {
-		alphaArray[i] = newString.charAt(i);
-	}
-	return newString;
+    for (var i = 0; i < newString.length; i++) {
+        alphaArray[i] = newString.charAt(i);
+    }
+    alphaArray.sort();
+
+    var sortedString = "";
+
+    for (var j = 0; j < alphaArray.length; j++) {
+        var sortedString = sortedString + alphaArray[j];
+    }
+	return sortedString;
 }
 
 
@@ -90,13 +96,13 @@ function sortLetters(inputString) {
 /*
  * PROBLEM `absVal`: (normal)
  * Write a function called `absVal` that return the absolute value of a given
- * integer. Don't use Math.abs(...)
+ * integer. Don"t use Math.abs(...)
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function absVal(x) {
-	if (typeof x !== "number") {
+	if(!_.isNumber(x)) {
 		throw "Invalid input";
 	}
 	var y = x;
@@ -116,11 +122,11 @@ function absVal(x) {
  * Write a function called `myMin` that takes two integers and returns the
  * smaller of the two numbers.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function myMin(x,y) {
-	if (typeof x !== "number" || typeof y !== "number") {
+	if(!_.isNumber(x) || !_.isNumber(y)) {
 		throw "Invalid input";
 	}
 	var intX = x;
@@ -128,7 +134,7 @@ function myMin(x,y) {
 	var intArray = [];
 	intArray[0] = intX;
 	intArray[1] = intY;
-	intArray.sort();
+	intArray.sort(function(a,b){return a - b});
 	var smallerNumber = intArray[0];
 	return smallerNumber;
 }
@@ -139,23 +145,18 @@ function myMin(x,y) {
  * Write a function called `myMax` that takes an array of integers and returns
  * the largest.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  *
  * Insane mode: do this without using a for loop.
  */
 
 function myMax(array1) {
-	if (typeof array1 !== "object") {
+	if(!_.isObject(array1)) {
 		throw "Invalid input";
 	}
-	var large = 0;
+	array1.sort(function(a,b){return b - a});
 
-	for (var i=0;i<array1.length; i++) {
-		if (array1[i]>large) {
-			large = array1[i];
-		}
-	}
-	return large;
+	return array1[0];
 }
 
 
@@ -165,15 +166,15 @@ function myMax(array1) {
  * Write a function called `getMonth` that maps a given integer to a month.
  *
  * For example:
- * getMonth(1) == 'January'
- * getMonth(3) == 'March'
+ * getMonth(1) == "January"
+ * getMonth(3) == "March"
  * etc.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function getMonth(n) {
-	if (typeof n !== "number") {
+	if(!_.isNumber(n)) {
 		throw "Invalid input";
 	}
 	if (n < 1 || n > 12) {
@@ -184,6 +185,8 @@ function getMonth(n) {
 	return givenMonth;
 }
 
+
+
 /*
  * PROBLEM `randomElement`: (normal)
  * Create a function called `randomElement` that takes an array of values and
@@ -191,7 +194,7 @@ function getMonth(n) {
  */
 
 function randomElement(arrayOfValues) {
-	if (typeof arrayOfValues !== "object") {
+	if(!_.isObject(arrayOfValues)) {
 		throw "Invalid input";
 	}
 	var newArray = arrayOfValues;
@@ -201,6 +204,8 @@ function randomElement(arrayOfValues) {
 	return randomValue;
 }
 
+
+
 /*
  * PROBLEM `studentPairs`: (normal)
  * Create a javascript function called `studentPairs` that takes an array of
@@ -208,63 +213,126 @@ function randomElement(arrayOfValues) {
  * (array of arrays).
  */
 
-function studentPairs(arrayOfStudents) {
-	if (typeof arrayOfStudents !== "object") {
+function studentPairs(studentNames) {
+	if(!_.isArray(studentNames)) {
 		throw "Invalid input";
 	}
-	var newArray = arrayOfStudents;
-	var pairs = [];
-	var randomInt = Math.floor(Math.random() * (newArray.length)); //number between 1 and length of array
-
-	// need to push pairs of students to pairs array
-
-
-	for (var i=0; i<newArray.length; i++) {
-
+	for(var studentNumber = 0; studentNumber < studentNames.length; studentNumber++) {
+		var currentStudent = studentNames[studentNumber];
+		if(!_.isString(currentStudent)) {
+			throw "Invalid input: student must be a string";
+		}
 	}
+
+	var pairs = [];
+	var max = Math.floor(studentNames.length/2);
+
+	for(var pairNum = 0; pairNum < max; pairNum++) {
+		var studentNumber1 = getRandomInt(0, studentNames.length-1);
+		var studentName1 = studentNames.splice(studentNumber1, 1);
+
+		var studentNumber2 = getRandomInt(0, studentNames.length-1);
+		var studentName2 = studentNames.splice(studentNumber2, 1);
+
+		pairs.push(studentName1.concat(studentName2));
+	}
+
+	if (studentNames.length > 0) {
+		var pairNumber = getRandomInt(0, pairs.length-1);
+		pairs[pairNumber].push(studentNames[0]);
+	}
+
+	function getRandomInt(min,max) {
+		return Math.floor(Math.random() * (max - min +1)) + min;
+	}
+
+	return pairs;
 }
+
+
 
 /*
  * PROBLEM `sumSquares`: (normal)
  * Write a function called `sumSquares` that returns the sum of squares of all
  * integers from 1 up to and including a given positive, non-zero integer N.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function sumSquares(N) {
-	if (typeof N !== "number") {
-		throw "Invalid input";
+	if(!_.isNumber(N)) {
+		throw "Invalid input: not a number";
 	}
+	if(N <= 0) {
+		throw "Invalid input: must use a positive integer";
+	}
+
+	var x = N;
+	var sum = 0;
+	for (var i = 1; i <= x; i++) {
+		sum += i*i;
+	}
+	return sum;
 }
 
 /*
  * PROBLEM `findMaxDiff`: (normal)
  * Given an array of integers, write a function called `findMaxDiff` that finds
- * the maximal difference between any two adjacent elements.
+ * the maximal (largest!) difference between any two adjacent elements.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function findMaxDiff(arrayOfIntegers) {
-	if (typeof arrayOfIntegers !== "object") {
+	if(!_.isObject(arrayOfIntegers)) {
 		throw "Invalid input";
 	}
+	var x = 0;
+	var y = 0;
+	var diff = 0;
+	var largestDifference = [];
+
+	for (var i = 0; i < arrayOfIntegers.length; i++) {
+		x = arrayOfIntegers[i];
+		y = arrayOfIntegers[i+1];
+		if (x < y) {
+			diff = y - x;
+		}
+		else if (y < x) {
+			diff = x - y;
+		}
+		largestDifference.push(diff)
+	}
+	largestDifference.sort(function(a,b){return b - a});
+	return largestDifference[0];
 }
 
 /*
  * PROBLEM `insertDashes`: (normal)
  * Write a function called `insertDashes` that transforms a given sentence into
  * a new one with dashes between each two consecutive letters.
- * For example: insertDashes('abba test') => a-b-b-a t-e-s-t
+ * For example: insertDashes("abba test") => a-b-b-a t-e-s-t
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function insertDashes(sentence) {
-	if (typeof sentence !== "string") {
+	if(!_.isString(sentence)) {
 		throw "Invalid input";
 	}
+	var dashArray = [];
+	var newArray = [];
+
+	dashArray = sentence.split(" ");
+
+	for (var i = 0; i < dashArray.length; i++) {
+    	var dashes = dashArray[i].split("").join("-");
+    	newArray.push(dashes);
+	}
+
+	newArray = newArray.join(" ");
+
+	return newArray;
 }
 
 /*
@@ -272,15 +340,34 @@ function insertDashes(sentence) {
  * Implement a function called `mySubstring` that can output the substring of
  * the given string within specified bounds.
  *
- * For example: mySubstring('abcde', 2, 3) === 'cd'
+ * For example: mySubstring("abcde", 2, 3) === "cd"
  *
- * Don't use String.substring in your solution.
+ * Don"t use String.substring in your solution.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
-function mySubstring(givenString) {
-	// your code goes here
+function mySubstring(givenString, start, stop) {
+	if(!_.isString(givenString)) {
+		throw "Invalid input: input should be a string";
+	}
+
+	var arrayOfGivenString = [];
+	var newArray = [];
+	var smallerString = "";
+
+	arrayOfGivenString = givenString.split("");
+
+    for (var i = 0; i < arrayOfGivenString.length; i++) {
+        if((i >= start) && (i <= stop)){
+            var sub = arrayOfGivenString[i];
+            newArray.push(sub);
+        }
+    }
+
+	smallerString = newArray.join("");
+
+	return smallerString;
 }
 
 /*
@@ -291,7 +378,7 @@ function mySubstring(givenString) {
  *
  * For example: splitSwap([1,2,3,4,5]) === [3,4,5,1,2]
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function splitSwap(givenArray) {
@@ -306,7 +393,7 @@ function splitSwap(givenArray) {
  * For example smallMultiples(4, 1) === 3 because 1*2, 1*3 and 1*4 are not
  * greater than 4.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function smallMultiples(n,k) {
@@ -319,7 +406,7 @@ function smallMultiples(n,k) {
  * the [ROT-13](http://en.wikipedia.org/wiki/ROT13) version of that string.
  *
  * The input should only contain lower-case alphabetic characters. If the input
- * is invalid throw an 'Invalid Input' exception.
+ * is invalid throw an "Invalid Input" exception.
  */
 
 function rot13(unencryptedString) {
@@ -332,7 +419,7 @@ function rot13(unencryptedString) {
  * returns the decrypted version of that string.
  *
  * The input should only contain lower-case alphabetic characters. If the input
- * is invalid throw an 'Invalid Input' exception.
+ * is invalid throw an "Invalid Input" exception.
  */
 
 function derot13(rot13String) {
@@ -345,7 +432,7 @@ function derot13(rot13String) {
  * integer (n) and returns the ROT-N version of that string.
  *
  * The input should only contain lower-case alphabetic characters. If the input
- * is invalid throw an 'Invalid Input' exception.
+ * is invalid throw an "Invalid Input" exception.
  */
 
 function rotn(unencryptedString,n) {
@@ -358,7 +445,7 @@ function rotn(unencryptedString,n) {
  * returns an array that includes only the elements that appear in both a and b.
  * A value should not appear more than once in the returned array.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function findBoth(a,b) {
@@ -371,7 +458,7 @@ function findBoth(a,b) {
  * b. The function should return the number of elements that exist in both a and
  * b.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function countBoth(a,b) {
@@ -407,7 +494,7 @@ function countBoth(a,b) {
  * Write a function called `isDiagonalMatrix` that takes a matrix and returns
  * true if the matrix is a diagonal matrix. Otherwise return false.
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function isDiagonalMatrix(arrayMatrix) {
@@ -430,11 +517,11 @@ function isDiagonalMatrix(arrayMatrix) {
  *
  * For example:
  * isAnagram(
- * 		['cinema', 'shot', 'aba', 'rain'],
- * 		['iceman', 'hots', 'bab', 'train']
+ * 		["cinema", "shot", "aba", "rain"],
+ * 		["iceman", "hots", "bab", "train"]
  * ) === [true, true, false, false];
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function isAnagram(arr1,arr2) {
@@ -454,14 +541,14 @@ function isAnagram(arr1,arr2) {
  * closed.
  *
  * For example:
- * validateParentheses(']') === false;
- * validateParentheses('[') === false;
- * validateParentheses('[]') === true;
- * validateParentheses('{[]}') === true;
- * validateParentheses('([)]') === false;
- * validateParentheses('{[(){()}]}') === true;
+ * validateParentheses("]") === false;
+ * validateParentheses("[") === false;
+ * validateParentheses("[]") === true;
+ * validateParentheses("{[]}") === true;
+ * validateParentheses("([)]") === false;
+ * validateParentheses("{[(){()}]}") === true;
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  */
 
 function validateParentheses(stringOfP) {
@@ -477,7 +564,7 @@ function validateParentheses(stringOfP) {
  * flattenArray([1, {a: [2, 3]}, 4, [5, [6]], [[7], 8, 9], 10])
  * === [1, {a: [2, 3]}, 4, 5, 6, 7, 8, 9, 10]
  *
- * If the input is invalid throw an 'Invalid Input' exception.
+ * If the input is invalid throw an "Invalid Input" exception.
  *
  * Insane mode: do this without recursion.
  */
@@ -490,29 +577,29 @@ function flattenArray(arrayNonFlat) {
  * Do not modify the code below
  */
 module.exports = {
-	checkData: 				typeof checkData === 'undefined' ? undefined : checkData,
-	concatenateArrays: 		typeof concatenateArrays === 'undefined' ? undefined : concatenateArrays,
-	fixProperNoun: 			typeof fixProperNoun === 'undefined' ? undefined : fixProperNoun,
-	sortLetters: 			typeof sortLetters === 'undefined' ? undefined : sortLetters,
-	absVal: 				typeof absVal === 'undefined' ? undefined : absVal,
-	myMin: 					typeof myMin === 'undefined' ? undefined : myMin,
-	myMax: 					typeof myMax === 'undefined' ? undefined : myMax,
-	getMonth: 				typeof getMonth === 'undefined' ? undefined : getMonth,
-	randomElement: 			typeof randomElement === 'undefined' ? undefined : randomElement,
-	studentPairs: 			typeof studentPairs === 'undefined' ? undefined : studentPairs,
-	sumSquares: 			typeof sumSquares === 'undefined' ? undefined : sumSquares,
-	findMaxDiff: 			typeof findMaxDiff === 'undefined' ? undefined : findMaxDiff,
-	insertDashes: 			typeof insertDashes === 'undefined' ? undefined : insertDashes,
-	mySubstring: 			typeof mySubstring === 'undefined' ? undefined : mySubstring,
-	splitSwap: 				typeof splitSwap === 'undefined' ? undefined : splitSwap,
-	smallMultiples: 		typeof smallMultiples === 'undefined' ? undefined : smallMultiples,
-	rot13: 					typeof rot13 === 'undefined' ? undefined : rot13,
-	derot13: 				typeof derot13 === 'undefined' ? undefined : derot13,
-	rotn: 					typeof rotn === 'undefined' ? undefined : rotn,
-	findBoth: 				typeof findBoth === 'undefined' ? undefined : findBoth,
-	countBoth: 				typeof countBoth === 'undefined' ? undefined : countBoth,
-	isDiagonalMatrix: 		typeof isDiagonalMatrix === 'undefined' ? undefined : isDiagonalMatrix,
-	isAnagram: 				typeof isAnagram === 'undefined' ? undefined : isAnagram,
-	validateParentheses:	typeof validateParentheses === 'undefined' ? undefined : validateParentheses,
-	flattenArray: 			typeof flattenArray === 'undefined' ? undefined : flattenArray
+	checkData: 				typeof checkData === "undefined" ? undefined : checkData,
+	concatenateArrays: 		typeof concatenateArrays === "undefined" ? undefined : concatenateArrays,
+	fixProperNoun: 			typeof fixProperNoun === "undefined" ? undefined : fixProperNoun,
+	sortLetters: 			typeof sortLetters === "undefined" ? undefined : sortLetters,
+	absVal: 				typeof absVal === "undefined" ? undefined : absVal,
+	myMin: 					typeof myMin === "undefined" ? undefined : myMin,
+	myMax: 					typeof myMax === "undefined" ? undefined : myMax,
+	getMonth: 				typeof getMonth === "undefined" ? undefined : getMonth,
+	randomElement: 			typeof randomElement === "undefined" ? undefined : randomElement,
+	studentPairs: 			typeof studentPairs === "undefined" ? undefined : studentPairs,
+	sumSquares: 			typeof sumSquares === "undefined" ? undefined : sumSquares,
+	findMaxDiff: 			typeof findMaxDiff === "undefined" ? undefined : findMaxDiff,
+	insertDashes: 			typeof insertDashes === "undefined" ? undefined : insertDashes,
+	mySubstring: 			typeof mySubstring === "undefined" ? undefined : mySubstring,
+	splitSwap: 				typeof splitSwap === "undefined" ? undefined : splitSwap,
+	smallMultiples: 		typeof smallMultiples === "undefined" ? undefined : smallMultiples,
+	rot13: 					typeof rot13 === "undefined" ? undefined : rot13,
+	derot13: 				typeof derot13 === "undefined" ? undefined : derot13,
+	rotn: 					typeof rotn === "undefined" ? undefined : rotn,
+	findBoth: 				typeof findBoth === "undefined" ? undefined : findBoth,
+	countBoth: 				typeof countBoth === "undefined" ? undefined : countBoth,
+	isDiagonalMatrix: 		typeof isDiagonalMatrix === "undefined" ? undefined : isDiagonalMatrix,
+	isAnagram: 				typeof isAnagram === "undefined" ? undefined : isAnagram,
+	validateParentheses:	typeof validateParentheses === "undefined" ? undefined : validateParentheses,
+	flattenArray: 			typeof flattenArray === "undefined" ? undefined : flattenArray
 };
