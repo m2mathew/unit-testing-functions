@@ -1,5 +1,9 @@
 # Unit Testing Functions
 
+Assignment from The Iron Yard-Austin
+
+Week 3 - day 10
+
 ## Description
 Unit test these functions before implementing them.
 
@@ -63,10 +67,10 @@ After completing this assignment, you be able to effectively use
 7. Develop unit tests for all of the functions labeled (normal)
 8. Commit your unit tests and push to GitHub
 9. Implement each of the functions.
-            
+
 ## Hard Mode
 Develop unit tests for, and implement the functions labeled (hard)
-            
+
 ## Nightmare Mode
 Develop unit tests for, and implement the functions labeled (nightmare)
 
@@ -83,8 +87,4 @@ and change it to:
 "test": "./node_modules/mocha/bin/mocha ./tests/**/*.js"
 ```
 
-you should now be able to run `npm test` to run all of your unit tests.
-
-## Additional Resources
-
-* Read []()
+You should now be able to run `npm test` to run all of your unit tests.
